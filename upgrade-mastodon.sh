@@ -15,10 +15,12 @@ docker-compose build
 docker-compose run --rm -e SKIP_POST_DEPLOYMENT_MIGRATIONS=true web rails db:migrate
 
 # Restart Docker containers
-docker restart $(docker ps -a -q)
+docker stop $(docker ps -a -q)
+docker-compose up -d
 
 # Run post-deployment migrations
 docker-compose run --rm web rails db:migrate
 
 # Restart Docker containers again
-docker restart $(docker ps -a -q)
+docker stop $(docker ps -a -q)
+docker-compose up -d
